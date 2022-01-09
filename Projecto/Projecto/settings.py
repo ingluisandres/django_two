@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+
+# MYSQL_ROOT_PASSWORD = os.environ.get("MYSQL_ROOT_PASSWORD")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,8 +82,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': '0.0.0.0',
-        'PORT': '33060',
+        'PORT': '3306',
         'USER': 'root',
+        # 'PASSWORD': MYSQL_ROOT_PASSWORD,
         'PASSWORD': 'somepassword',
         'NAME':'django_api',
         'OPTIONS': {
