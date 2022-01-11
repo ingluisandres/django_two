@@ -122,3 +122,46 @@ class UsuarioView(View):
         else:
             datos={'message':'Usuario not found'}
         return JsonResponse(datos)
+
+class UsuariosByAgeView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        usuarios = list(Usuario.objects.values())
+
+        minimo=150
+        indice = 0
+
+        for j in range(len(usuarios)-1):
+            for i in range(j, len(usuarios)): 
+                if(minimo>usuarios[i]["edad"]):
+                    minimo = usuarios[i]["edad"]
+                    indice = i
+            minimo=150
+            usuarios[j], usuarios[indice] = usuarios[indice], usuarios[j]
+            
+
+        datos={'message':'Success', 'usuarios':usuarios}
+        return JsonResponse(datos)
+
+class UsuariosByLastNameView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        usuarios = character_sort(list(Usuario.objects.values()))
+        datos={'message':'Success', 'usuarios':usuarios}
+        return JsonResponse(datos)
+
+
+def character_sort(array):
+    for i in range(len(array)):
+        for j in range(len(array)):
+            if (array[j]["apellido_paterno"]>array[i]["apellido_paterno"]):
+                array[i], array[j] = array[j], array[i]
+    return array
