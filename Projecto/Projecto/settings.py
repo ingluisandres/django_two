@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 
 
-# MYSQL_ROOT_PASSWORD = os.environ.get("MYSQL_ROOT_PASSWORD")
+MYSQL_ROOT_PASSWORD = os.environ.get("MYSQL_ROOT_PASSWORD")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'Projecto.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': '0.0.0.0',
+        'HOST': 'mysql',
         'PORT': '3306',
         'USER': 'root',
-        # 'PASSWORD': MYSQL_ROOT_PASSWORD,
-        'PASSWORD': 'somepassword',
+        'PASSWORD': MYSQL_ROOT_PASSWORD,
+        # 'PASSWORD': 'somepassword',
         'NAME':'django_api',
         'OPTIONS': {
             'init_command':"SET sql_mode='STRICT_TRANS_TABLES'"

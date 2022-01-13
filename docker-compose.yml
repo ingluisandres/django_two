@@ -13,3 +13,14 @@ services:
       container_name: mysql
       volumes: 
       - /home/andy/dockerVolumes/django/three:/var/lib/mysql
+  web:
+    build: .
+    command: python Projecto/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      - database
